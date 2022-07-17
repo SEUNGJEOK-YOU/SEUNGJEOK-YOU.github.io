@@ -60,6 +60,9 @@ function limitToDoNumber(toDos) {
   if (toDos.length >= 5) {
     toDoText.innerText = "Five things to do today are enough.";
     toDoInput.classList.add(HIDDEN_KEY);
+  }else {
+    toDoText.innerText = "FWhat is your main focus for today?";
+    toDoInput.classList.remove(HIDDEN_KEY);
   }
 }
 function handleToDoFormSubmit(evt) {
