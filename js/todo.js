@@ -27,6 +27,7 @@ function handleBtnDelete(evt) {
   li.classList.add(DISAPPEAR_KEY);
   li.remove();
   toDos = toDos.filter((toDo) => toDo.id !== parseInt(li.id));
+  limitToDoNumber(toDos)
   saveToDo();
 }
 
