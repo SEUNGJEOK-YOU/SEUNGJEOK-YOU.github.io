@@ -1,0 +1,16 @@
+#toDoForm {
+    font-size: 30px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+#toDoForm input,
+#toDoForm input:focus {
+    font-size: inherit;
+    background: none;
+    border: none;
+    border-bottom: 2px solid white;
+    outline: none;
+    text-align: center;
+}
