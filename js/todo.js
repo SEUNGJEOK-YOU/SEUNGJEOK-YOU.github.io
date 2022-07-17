@@ -61,7 +61,7 @@ function limitToDoNumber(toDos) {
     toDoText.innerText = "Five things to do today are enough.";
     toDoInput.classList.add(HIDDEN_KEY);
   }else {
-    toDoText.innerText = "FWhat is your main focus for today?";
+    toDoText.innerText = "What is your main focus for today?";
     toDoInput.classList.remove(HIDDEN_KEY);
   }
 }
