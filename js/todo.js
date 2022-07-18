@@ -10,11 +10,17 @@ let toDos = [];
 function handleBtnCompleClick(evt) {
   const li = evt.target.parentNode;
   const span = li.querySelector("span");
-  span.classList.add("done");
+  let isChecked = true;
+
+  if (evt.target.checked) {
+    span.classList.add("done");
+  } else {
+    span.classList.remove("done");
+    isChecked = false;
+  }
   toDos = toDos.filter((toDo) => {
     if (toDo.id === parseInt(li.id)) {
-      toDo.done = true;
-      console.log(toDos);
+      toDo.done = isChecked;
     }
     return true;
   });
@@ -27,7 +33,7 @@ function handleBtnDelete(evt) {
   li.classList.add(DISAPPEAR_KEY);
   li.remove();
   toDos = toDos.filter((toDo) => toDo.id !== parseInt(li.id));
-  limitToDoNumber(toDos)
+  limitToDoNumber(toDos);
   saveToDo();
 }
 
@@ -46,10 +52,11 @@ function addToDoList(toDo) {
   const span = document.createElement("span");
   span.innerText = toDoItem;
   if (toDo.done) {
+    btnComplete.checked = true;
     span.classList.add("done");
   }
   const btnDelete = document.createElement("input");
-  btnDelete.type = "checkbox";
+  btnDelete.type = CHECKBOX_KEY;
   btnDelete.addEventListener("click", handleBtnDelete);
   li.appendChild(btnComplete);
   li.appendChild(span);
@@ -60,7 +67,7 @@ function limitToDoNumber(toDos) {
   if (toDos.length >= 5) {
     toDoText.innerText = "Five things to do today are enough.";
     toDoInput.classList.add(HIDDEN_KEY);
-  }else {
+  } else {
     toDoText.innerText = "What is your main focus for today?";
     toDoInput.classList.remove(HIDDEN_KEY);
   }
