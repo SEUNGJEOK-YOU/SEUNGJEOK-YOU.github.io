@@ -3,10 +3,17 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 20px;
+    align-items: center;
 }
 
+#toDoForm span {
+    font-size:inherit;
+    text-align: center;
+    width: 700px;
+}
 #toDoForm input,
 #toDoForm input:focus {
+    width: 400px;
     font-size: inherit;
     background: none;
     border: none;

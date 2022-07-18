@@ -7,6 +7,18 @@ const TODOLIST_KEY = "toDoList";
 const CHECKBOX_KEY = "checkbox";
 let toDos = [];
 
+function checkAllDone() {
+  const doneArr = [];
+  toDos.forEach((toDo) => {
+    doneArr.push(toDo.done);
+  });
+  if (doneArr.includes(false) || doneArr.length === 0) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
 function handleBtnCompleClick(evt) {
   const li = evt.target.parentNode;
   const span = li.querySelector("span");
@@ -24,6 +36,7 @@ function handleBtnCompleClick(evt) {
     }
     return true;
   });
+  changeToDoText(toDos);
   saveToDo();
 }
 
@@ -33,7 +46,7 @@ function handleBtnDelete(evt) {
   li.classList.add(DISAPPEAR_KEY);
   li.remove();
   toDos = toDos.filter((toDo) => toDo.id !== parseInt(li.id));
-  limitToDoNumber(toDos);
+  changeToDoText(toDos);
   saveToDo();
 }
 
@@ -63,22 +76,32 @@ function addToDoList(toDo) {
   li.appendChild(btnDelete);
   toDoList.appendChild(li);
 }
-function limitToDoNumber(toDos) {
-  if (toDos.length >= 5) {
-    toDoText.innerText = "Five things to do today are enough.";
-    toDoInput.classList.add(HIDDEN_KEY);
+function changeToDoText(toDos) {
+  console.log(checkAllDone());
+  if (checkAllDone()) {
+    toDoText.innerText = "You are AWESOME!!";
+    if (toDos.length === 5) {
+      toDoInput.classList.add(HIDDEN_KEY);
+    } else {
+      toDoInput.classList.remove(HIDDEN_KEY);
+    }
   } else {
-    toDoText.innerText = "What is your main focus for today?";
-    toDoInput.classList.remove(HIDDEN_KEY);
+    if (toDos.length === 5) {
+      toDoText.innerText = "Five things to do are enough.";
+      toDoInput.classList.add(HIDDEN_KEY);
+    } else {
+      toDoText.innerText = "What is your main focus for today?";
+      toDoInput.classList.remove(HIDDEN_KEY);
+    }
   }
 }
 function handleToDoFormSubmit(evt) {
   evt.preventDefault();
   const toDo = { id: Date.now(), content: toDoInput.value, done: false };
   toDos.push(toDo);
-  limitToDoNumber(toDos);
   toDoInput.value = "";
   addToDoList(toDo);
+  changeToDoText(toDos);
   saveToDo();
 }
 
@@ -88,7 +111,7 @@ const savedToDoList = localStorage.getItem(TODOLIST_KEY);
 
 if (savedToDoList !== null) {
   const parsedToDoList = JSON.parse(savedToDoList);
-  limitToDoNumber(parsedToDoList);
   parsedToDoList.forEach(addToDoList);
   toDos = parsedToDoList;
+  changeToDoText(parsedToDoList);
 }
