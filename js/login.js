@@ -17,8 +17,24 @@ function handleLoginFormSubmit(event) {
   showGreeting(username);
 }
 
+function chooseGreetingText(username) {
+  const date = new Date();
+  const hour = date.getHours();
+  let greetingText = "";
+  if (hour >= 6 && hour < 12) {
+    greetingText = "Good morning";
+  } else if (hour >= 12 && hour < 17) {
+    greetingText = "Good afternoon";
+  } else if (hour >= 17 && hour < 21) {
+    greetingText = "Good evening";
+  } else {
+    greetingText = "Good ninght";
+  }
+  greeting.innerText = `${greetingText}, ${username}`;
+}
+
 function showGreeting(username) {
-  greeting.innerText = `Hi, ${username}`;
+  chooseGreetingText(username);
   clock.classList.remove(HIDDEN_KEY);
   clock.classList.add(APPEAR_KEY);
   greeting.classList.remove(HIDDEN_KEY);
@@ -34,7 +50,7 @@ loginForm.addEventListener("submit", handleLoginFormSubmit);
 const savedUsername = localStorage.getItem(USERNAME_KEY);
 
 if (savedUsername === null) {
-  loginForm.classList.remove(HIDDEN_KEY);  
+  loginForm.classList.remove(HIDDEN_KEY);
 } else {
   loginForm.classList.remove(APPEAR_KEY);
   loginForm.classList.add(HIDDEN_KEY);
