@@ -10,7 +10,7 @@ function onGeoSuccess(position) {
     .then((response) => response.json())
     .then((data) => {
       const position = data.name;
-      const temperature = data.main.temp;
+      const temperature = Math.round(data.main.temp * 10) / 10;
       const sky = data.weather[0].main;
       weatherText.innerText = `${temperature}℃ ${sky} @ ${position}`;
       weather.classList.remove(HIDDEN_KEY);
